@@ -1,13 +1,13 @@
 var async = require('async'),
 	Q = require('q'),
 	items=[],
-	tasks=[];
+	tasks={};
 
 for (var i=0;i<10;i++){
 	items.push(i);
 }
 
-var queue = async.queue(doSomething,5); //run parallel but limit to 5
+var queue = async.queue(doSomething,2); //run parallel but limit to 5
 
 queue.push(items,function(error, res){
 	if (error) {
@@ -17,7 +17,6 @@ queue.push(items,function(error, res){
 		console.log("response.."+ res);	
 	}
 	console.log(queue.length()+ " to go ");
-	
 });
 
 queue.drain= function(){
